@@ -3,16 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DARK SATORU</title>
+  <title>GIVIXUS</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
+    /* ===== GIVIXUS Design Tokens (Warna Terracotta) ===== */
+    :root {
+      color-scheme: dark;
+      --primary: #D97757;
+      --primary-rgb: 217, 119, 87;
+      --primary-hover: #C56849;
+      --primary-soft: #2C2926;
+      --bg: #211F1D;
+      --surface: #2C2926;
+      --text-primary: #F5F0EA;
+      --text-secondary: #78716C;
+      --border: #3D3834;
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --primary: #D97757;
+      --primary-rgb: 217, 119, 87;
+      --primary-hover: #C56849;
+      --primary-soft: #F4E2DA;
+      --bg: #FAF8F5;
+      --surface: #FFFFFF;
+      --text-primary: #292524;
+      --text-secondary: #78716C;
+      --border: #E7E1DB;
+    }
+
     /* Global Reset and Base Styles */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #0D0014;
-      color: #E0E0E0;
+      background: var(--bg);
+      color: var(--text-primary);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -38,22 +64,22 @@
     /* Header/Title */
     h1.main-title {
       font-family: 'Orbitron', sans-serif;
-      color: #BE60EE;
+      color: var(--primary);
       font-size: 32px;
       margin-bottom: 30px;
-      text-shadow: 0 0 10px rgba(190, 96, 238, 0.6);
+      text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.6);
       letter-spacing: 2px;
     }
 
     /* Main Content Panels */
     .container {
-      background: #1A0526;
-      border: 1px solid #3F0A5E;
+      background: var(--surface);
+      border: 1px solid var(--border);
       padding: 24px;
       border-radius: 20px;
       max-width: 420px;
       width: 100%;
-      box-shadow: 0 0 25px rgba(190, 96, 238, 0.4);
+      box-shadow: 0 0 25px rgba(var(--primary-rgb), 0.4);
       backdrop-filter: blur(5px);
       position: relative;
       margin-bottom: 20px;
@@ -66,27 +92,72 @@
     }
     .profile-logo {
       width: 100px; height: 100px; margin: 0 auto 15px; display: block; border-radius: 50%;
-      box-shadow: 0 0 10px rgba(190, 96, 238, 0.8); border: 3px solid #BE60EE; object-fit: cover;
+      box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.8); border: 3px solid var(--primary); object-fit: cover;
     }
-    .profile-username { font-family: 'Orbitron', sans-serif; font-size: 24px; color: #E0E0E0; font-weight: bold; margin-bottom: 8px; }
-    .profile-details { font-size: 14px; color: #9A9A9A; }
-    .profile-details span { color: #BE60EE; font-weight: 600; }
+    .profile-username { font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--text-primary); font-weight: bold; margin-bottom: 8px; }
+    .profile-details { font-size: 14px; color: var(--text-secondary); }
+    .profile-details span { color: var(--primary); font-weight: 600; }
 
     /* Section Titles and Inputs */
-    .section-title { font-family: 'Orbitron', sans-serif; font-size: 18px; color: #BE60EE; margin-bottom: 15px; text-align: left; text-transform: uppercase; letter-spacing: 1px; }
-    input[type="text"], select, textarea { width: 100%; padding: 14px 18px; border-radius: 10px; background: #2D0842; border: 1px solid #BE60EE; color: #E0E0E0; margin-bottom: 25px; font-size: 16px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-    select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%23E0E0E0" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 15px center; padding-right: 40px; }
+    .section-title { font-family: 'Orbitron', sans-serif; font-size: 18px; color: var(--primary); margin-bottom: 15px; text-align: left; text-transform: uppercase; letter-spacing: 1px; }
+    input[type="text"], select, textarea { width: 100%; padding: 14px 18px; border-radius: 10px; background: var(--primary-soft); border: 1px solid var(--primary); color: var(--text-primary); margin-bottom: 25px; font-size: 16px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%23F5F0EA" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 15px center; padding-right: 40px; }
     
     /* Execute Button */
-    .execute-button { background: linear-gradient(90deg, #BE60EE, #7D26A6); color: #fff; padding: 18px; width: 100%; border-radius: 10px; font-weight: bold; border: none; margin-bottom: 12px; cursor: pointer; font-size: 18px; letter-spacing: 1px; transition: 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 0 15px rgba(190, 96, 238, 0.4); }
-    .execute-button:disabled { background: #4A1B6B; cursor: not-allowed; opacity: 0.6; box-shadow: none; }
-    .execute-button:hover:not(:disabled) { background: linear-gradient(90deg, #7D26A6, #BE60EE); box-shadow: 0 0 25px rgba(190, 96, 238, 0.8); }
+    .execute-button { background: linear-gradient(90deg, var(--primary), var(--primary-hover)); color: #fff; padding: 18px; width: 100%; border-radius: 10px; font-weight: bold; border: none; margin-bottom: 12px; cursor: pointer; font-size: 18px; letter-spacing: 1px; transition: 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.4); }
+    .execute-button:disabled { background: var(--border); cursor: not-allowed; opacity: 0.6; box-shadow: none; }
+    .execute-button:hover:not(:disabled) { background: linear-gradient(90deg, var(--primary-hover), var(--primary)); box-shadow: 0 0 25px rgba(var(--primary-rgb), 0.8); }
 
     /* Footer Action - DIHAPUS */
     .footer-action-container { display: none; }
 
+    /* Status Eksekusi (diisi oleh server) */
+    .execution-status {
+      text-align: center;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid var(--primary);
+      border-radius: 12px;
+      background: rgba(var(--primary-rgb), 0.08);
+    }
+    .execution-status-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .execution-status-message {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Disabled Status Panel (Fitur Dinonaktifkan) */
+    .disabled-status {
+      text-align: center;
+      padding: 20px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+    .disabled-status-icon {
+      width: 48px; height: 48px; margin: 0 auto 12px;
+      border-radius: 50%;
+      background: rgba(var(--primary-rgb), 0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary); font-size: 22px;
+    }
+    .disabled-status-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px; color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .disabled-status-text {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+    }
+
     /* Popup */
-    .popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background: #2D0842; color: #00ff5e; padding: 16px 22px; border-radius: 12px; box-shadow: 0 0 20px rgba(0,255,94,0.7); font-weight: bold; display: none; z-index: 9999; animation: zoomFade 2s ease forwards; text-align: center; }
+    .popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background: var(--primary-soft); color: var(--primary-hover); padding: 16px 22px; border-radius: 12px; box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4); font-weight: bold; display: none; z-index: 9999; animation: zoomFade 2s ease forwards; text-align: center; }
     @keyframes zoomFade { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 15% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 85% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } }
 
     /* ======================================= */
@@ -106,27 +177,27 @@
       text-align: center;
       margin-bottom: 25px;
       padding-bottom: 20px;
-      border-bottom: 1px solid #3F0A5E;
+      border-bottom: 1px solid var(--border);
     }
     .darkverse-title {
       font-family: 'Orbitron', sans-serif;
       font-size: 28px;
-      color: #BE60EE;
+      color: var(--primary);
       margin-bottom: 10px;
-      text-shadow: 0 0 8px rgba(190, 96, 238, 0.6);
+      text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.6);
     }
     .darkverse-subtitle {
       font-size: 14px;
-      color: #9A9A9A;
+      color: var(--text-secondary);
       margin-bottom: 15px;
     }
     .darkverse-contact {
-      background: rgba(190, 96, 238, 0.1);
-      border: 1px solid #BE60EE;
+      background: rgba(var(--primary-rgb), 0.1);
+      border: 1px solid var(--primary);
       border-radius: 8px;
       padding: 12px;
       font-size: 14px;
-      color: #BE60EE;
+      color: var(--primary);
       margin-bottom: 15px;
       text-align: center;
     }
@@ -147,10 +218,10 @@
       align-items: center;
       justify-content: center;
       padding: 15px 10px;
-      background: #1A0526;
-      border: 1px solid #3F0A5E;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      color: #E0E0E0;
+      color: var(--text-primary);
       font-size: 13px;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -158,20 +229,20 @@
       min-height: 80px;
     }
     .darkverse-button i {
-      color: #BE60EE;
+      color: var(--primary);
       font-size: 24px;
       margin-bottom: 8px;
     }
     .darkverse-button:hover {
-      background: #2D0842;
-      border-color: #BE60EE;
+      background: var(--primary-soft);
+      border-color: var(--primary);
       transform: translateY(-3px);
     }
     
     /* Telegram Channel */
     .telegram-channel {
       background: rgba(0, 136, 204, 0.1);
-      border: 1px solid #0088cc;
+      border: 1px solid var(--primary-hover);
       border-radius: 10px;
       padding: 15px;
       margin-bottom: 25px;
@@ -179,13 +250,13 @@
     }
     .telegram-title {
       font-size: 16px;
-      color: #0088cc;
+      color: var(--primary-hover);
       margin-bottom: 8px;
       font-weight: 600;
     }
     .telegram-desc {
       font-size: 13px;
-      color: #9A9A9A;
+      color: var(--text-secondary);
     }
     
     /* Server Stats */
@@ -195,7 +266,7 @@
     .stats-title {
       font-family: 'Orbitron', sans-serif;
       font-size: 18px;
-      color: #BE60EE;
+      color: var(--primary);
       margin-bottom: 15px;
       text-align: center;
     }
@@ -205,8 +276,8 @@
       gap: 12px;
     }
     .stat-card {
-      background: #1A0526;
-      border: 1px solid #3F0A5E;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
       padding: 15px;
       text-align: center;
@@ -214,12 +285,12 @@
     .stat-value {
       font-family: 'Orbitron', sans-serif;
       font-size: 24px;
-      color: #BE60EE;
+      color: var(--primary);
       margin-bottom: 5px;
     }
     .stat-label {
       font-size: 12px;
-      color: #9A9A9A;
+      color: var(--text-secondary);
     }
 
     /* Hamburger Button */
@@ -227,9 +298,9 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      background: #2D0842;
-      color: #BE60EE;
-      border: 1px solid #BE60EE;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary);
       padding: 10px 15px;
       border-radius: 8px;
       font-size: 20px;
@@ -238,7 +309,7 @@
       transition: all 0.3s ease;
     }
     #openSidebarBtn:hover {
-      background: #3F0A5E;
+      background: var(--border);
       transform: scale(1.05);
     }
     
@@ -256,33 +327,33 @@
     }
 
     .player-controls button {
-        background: #BE60EE;
+        background: var(--primary);
         border: none;
         border-radius: 50%;
         width: 60px;
         height: 60px;
         margin: 0 10px;
-        color: #1A0526;
+        color: var(--surface);
         font-size: 24px;
         cursor: pointer;
         transition: background 0.3s;
     }
     .player-controls button:hover {
-        background: #9a4ed1;
+        background: var(--primary-hover);
     }
     .song-title {
         font-family: 'Orbitron', sans-serif;
         font-size: 18px;
-        color: #E0E0E0;
+        color: var(--text-primary);
         margin-bottom: 20px;
-        text-shadow: 0 0 5px rgba(190, 96, 238, 0.4);
+        text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.4);
     }
     
     /* Progress Bar (Garis waktu lagu) */
     #progressContainer {
         width: 100%;
         height: 8px;
-        background: #3F0A5E;
+        background: var(--border);
         border-radius: 4px;
         margin-top: 30px;
         margin-bottom: 10px;
@@ -292,14 +363,14 @@
     #progressBar {
         width: 0%;
         height: 100%;
-        background: linear-gradient(90deg, #BE60EE, #7D26A6);
+        background: linear-gradient(90deg, var(--primary), var(--primary-hover));
         transition: width 0.1s linear;
     }
     .time-display {
         display: flex;
         justify-content: space-between;
         font-size: 12px;
-        color: #9A9A9A;
+        color: var(--text-secondary);
         margin-bottom: 30px;
     }
 
@@ -321,22 +392,22 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      background: #2D0842;
-      border: 2px solid #BE60EE;
+      background: var(--primary-soft);
+      border: 2px solid var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #BE60EE;
+      color: var(--primary);
       font-size: 20px;
       cursor: pointer;
       z-index: 50;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(190, 96, 238, 0.5);
+      box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
     }
 
     #profileIcon:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 15px rgba(190, 96, 238, 0.8);
+      box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.8);
     }
 
     /* Profile Info Panel */
@@ -345,13 +416,13 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #1A0526;
-      border: 2px solid #BE60EE;
+      background: var(--surface);
+      border: 2px solid var(--primary);
       border-radius: 20px;
       padding: 30px;
       width: 90%;
       max-width: 400px;
-      box-shadow: 0 0 30px rgba(190, 96, 238, 0.6);
+      box-shadow: 0 0 30px rgba(var(--primary-rgb), 0.6);
       z-index: 2000;
       display: none;
       flex-direction: column;
@@ -379,14 +450,14 @@
     .profile-info-title {
       font-family: 'Orbitron', sans-serif;
       font-size: 22px;
-      color: #BE60EE;
-      text-shadow: 0 0 8px rgba(190, 96, 238, 0.6);
+      color: var(--primary);
+      text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.6);
     }
 
     #closeProfileInfoBtn {
       background: none;
       border: none;
-      color: #BE60EE;
+      color: var(--primary);
       font-size: 24px;
       cursor: pointer;
       transition: color 0.2s;
@@ -405,25 +476,25 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      border: 3px solid #BE60EE;
+      border: 3px solid var(--primary);
       margin: 0 auto 20px;
-      box-shadow: 0 0 15px rgba(190, 96, 238, 0.7);
+      box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.7);
     }
 
     .profile-info-username {
       font-family: 'Orbitron', sans-serif;
       font-size: 24px;
-      color: #E0E0E0;
+      color: var(--text-primary);
       margin-bottom: 10px;
       font-weight: bold;
     }
 
     .profile-info-details {
-      background: #2D0842;
+      background: var(--primary-soft);
       border-radius: 12px;
       padding: 20px;
       margin-top: 20px;
-      border: 1px solid #3F0A5E;
+      border: 1px solid var(--border);
     }
 
     .profile-info-item {
@@ -431,7 +502,7 @@
       justify-content: space-between;
       margin-bottom: 12px;
       padding-bottom: 12px;
-      border-bottom: 1px solid #3F0A5E;
+      border-bottom: 1px solid var(--border);
     }
 
     .profile-info-item:last-child {
@@ -441,12 +512,12 @@
     }
 
     .profile-info-label {
-      color: #9A9A9A;
+      color: var(--text-secondary);
       font-size: 14px;
     }
 
     .profile-info-value {
-      color: #BE60EE;
+      color: var(--primary);
       font-weight: 600;
       font-size: 14px;
     }
@@ -486,7 +557,7 @@
       bottom: 0;
       width: 5px;
       height: 5px;
-      background-color: rgba(255, 50, 50, 0.6);
+      background-color: rgba(var(--primary-rgb), 0.6);
       border-radius: 50%;
       filter: blur(2px);
       animation: smoke-rise linear infinite;
@@ -511,11 +582,11 @@
     /* IP CHECK DASHBOARD STYLES */
     /* ======================================= */
     .ip-info-result {
-      background: #2D0842;
+      background: var(--primary-soft);
       border-radius: 12px;
       padding: 20px;
       margin-top: 20px;
-      border: 1px solid #3F0A5E;
+      border: 1px solid var(--border);
       display: none;
     }
 
@@ -528,7 +599,7 @@
       justify-content: space-between;
       margin-bottom: 12px;
       padding-bottom: 12px;
-      border-bottom: 1px solid #3F0A5E;
+      border-bottom: 1px solid var(--border);
     }
 
     .ip-info-item:last-child {
@@ -538,13 +609,13 @@
     }
 
     .ip-info-label {
-      color: #9A9A9A;
+      color: var(--text-secondary);
       font-size: 14px;
       font-weight: 600;
     }
 
     .ip-info-value {
-      color: #BE60EE;
+      color: var(--primary);
       font-weight: 600;
       font-size: 14px;
       text-align: right;
@@ -555,7 +626,7 @@
     .loading-spinner {
       display: none;
       text-align: center;
-      color: #BE60EE;
+      color: var(--primary);
       margin: 20px 0;
     }
 
@@ -564,8 +635,8 @@
     }
 
     .spinner {
-      border: 3px solid #3F0A5E;
-      border-top: 3px solid #BE60EE;
+      border: 3px solid var(--border);
+      border-top: 3px solid var(--primary);
       border-radius: 50%;
       width: 30px;
       height: 30px;
@@ -592,18 +663,18 @@
     .search-result-item {
       display: flex;
       align-items: center;
-      background: #2D0842;
+      background: var(--primary-soft);
       border-radius: 10px;
       margin: 10px 0;
       cursor: pointer;
       padding: 12px;
       transition: 0.3s;
-      border: 1px solid #3F0A5E;
+      border: 1px solid var(--border);
     }
 
     .search-result-item:hover {
       background: #3A0A55;
-      border-color: #BE60EE;
+      border-color: var(--primary);
     }
 
     .search-result-item img {
@@ -611,7 +682,7 @@
       height: 60px;
       border-radius: 6px;
       margin-right: 12px;
-      border: 1px solid #BE60EE;
+      border: 1px solid var(--primary);
     }
 
     .search-result-info {
@@ -620,14 +691,14 @@
     }
 
     .search-result-info h5 {
-      color: #E0E0E0;
+      color: var(--text-primary);
       font-size: 14px;
       margin-bottom: 5px;
       font-weight: 600;
     }
 
     .search-result-info p {
-      color: #9A9A9A;
+      color: var(--text-secondary);
       font-size: 12px;
       margin: 0;
     }
@@ -641,15 +712,15 @@
     }
 
     .status-processing { background: #FFA500; }
-    .status-success { background: #00ff5e; }
-    .status-error { background: #ff4444; }
+    .status-success { background: var(--primary); }
+    .status-error { background: var(--primary-hover); }
 
     .youtube-player {
-      background: #2D0842;
+      background: var(--primary-soft);
       border-radius: 12px;
       padding: 20px;
       margin-top: 20px;
-      border: 1px solid #3F0A5E;
+      border: 1px solid var(--border);
       display: none;
     }
 
@@ -658,13 +729,13 @@
     }
 
     .youtube-player h3 {
-      color: #BE60EE;
+      color: var(--primary);
       font-family: 'Orbitron', sans-serif;
       margin-bottom: 10px;
     }
 
     .youtube-player p {
-      color: #9A9A9A;
+      color: var(--text-secondary);
       margin-bottom: 15px;
     }
 
@@ -681,8 +752,8 @@
     }
 
     .youtube-controls button {
-      background: #BE60EE;
-      color: #1A0526;
+      background: var(--primary);
+      color: var(--surface);
       border: none;
       border-radius: 8px;
       padding: 10px 15px;
@@ -695,7 +766,7 @@
     }
 
     .youtube-controls button:hover {
-      background: #9a4ed1;
+      background: var(--primary-hover);
     }
 
     /* ======================================= */
@@ -710,11 +781,11 @@
     }
 
     .chat-container {
-      background: #2D0842;
+      background: var(--primary-soft);
       border-radius: 12px;
       padding: 20px;
       margin-top: 20px;
-      border: 1px solid #3F0A5E;
+      border: 1px solid var(--border);
       max-height: 450px; /* Diperbesar */
       min-height: 450px; /* Diperbesar */
       overflow-y: auto;
@@ -730,14 +801,14 @@
 
     .user-message {
       background: #3A0A55;
-      border: 1px solid #BE60EE;
+      border: 1px solid var(--primary);
       margin-left: auto;
       text-align: right;
     }
 
     .ai-message {
-      background: #1A0526;
-      border: 1px solid #3F0A5E;
+      background: var(--surface);
+      border: 1px solid var(--border);
       margin-right: auto;
     }
 
@@ -745,7 +816,7 @@
       font-weight: 600;
       margin-bottom: 5px;
       font-size: 12px;
-      color: #BE60EE;
+      color: var(--primary);
     }
 
     .message-content {
@@ -764,9 +835,9 @@
   flex: 1;
   padding: 12px 14px;
   border-radius: 10px;
-  background: #2D0842;
-  border: 1px solid #BE60EE;
-  color: #E0E0E0;
+  background: var(--primary-soft);
+  border: 1px solid var(--primary);
+  color: var(--text-primary);
   font-family: 'Montserrat', sans-serif;
   resize: none;
   min-height: 45px; /* ✅ samakan dengan tombol */
@@ -775,8 +846,8 @@
 }
 
 .send-button {
-  background: #BE60EE;
-  color: #1A0526;
+  background: var(--primary);
+  color: var(--surface);
   border: none;
   border-radius: 10px;
   padding: 0 18px; /* ✅ biar tinggi tombol proporsional */
@@ -791,18 +862,18 @@
 }
 
     .send-button:hover {
-      background: #9a4ed1;
+      background: var(--primary-hover);
     }
 
     .send-button:disabled {
-      background: #4A1B6B;
+      background: var(--border);
       cursor: not-allowed;
       opacity: 0.6;
     }
 
     .typing-indicator {
       display: none;
-      color: #BE60EE;
+      color: var(--primary);
       font-style: italic;
       margin: 10px 0;
       text-align: left;
@@ -813,9 +884,9 @@
     }
 
     .clear-chat-btn {
-      background: rgba(255, 68, 68, 0.1);
-      border: 1px solid #ff4444;
-      color: #ff4444;
+      background: rgba(var(--primary-rgb), 0.1);
+      border: 1px solid var(--primary-hover);
+      color: var(--primary-hover);
       border-radius: 8px;
       padding: 8px 15px;
       cursor: pointer;
@@ -825,28 +896,48 @@
     }
 
     .clear-chat-btn:hover {
-      background: #ff4444;
-      color: #1A0526;
+      background: var(--primary-hover);
+      color: var(--surface);
     }
 
     .api-status {
       font-size: 12px;
-      color: #00ff5e;
+      color: var(--primary);
       margin-bottom: 15px;
       text-align: center;
+    }
+
+    /* ===== Interaksi & Aksesibilitas ===== */
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+    .darkverse-button:active,
+    .execute-button:active:not(:disabled),
+    .send-button:active:not(:disabled) { transform: scale(0.98); }
+
+    /* Ruang untuk bottom navigation agar konten tidak tertutup */
+    body { padding-bottom: 90px; }
+    @media (min-width: 600px) {
+      .app-wrapper { max-width: 480px; }
+      .darkverse-dashboard { max-width: 480px; }
     }
   </style>
 </head>
 <body>
-<!-- ======= Bottom Navigation (Tema Ungu Glow, Transisi Halus) ======= -->
+<!-- ======= Bottom Navigation (Tema Terracotta, Transisi Halus) ======= -->
 <style>
   .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(26, 5, 38, 0.95);
-    border-top: 1px solid #3F0A5E;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: space-around;
@@ -859,7 +950,7 @@
   .bottom-nav button {
     background: none;
     border: none;
-    color: #C0A8D8;
+    color: var(--text-secondary);
     text-align: center;
     font-family: 'Orbitron', sans-serif;
     font-weight: 600;
@@ -878,16 +969,16 @@
     transition: all 0.3s ease;
   }
 
-  /* Efek Tombol Aktif (Glow Ungu Lembut seperti Tema Aplikasi) */
+  /* Efek Tombol Aktif (Glow Terracotta Lembut seperti Tema Aplikasi) */
   .bottom-nav button.active {
-    color: #BE60EE;
-    text-shadow: 0 0 8px rgba(190, 96, 238, 0.8);
+    color: var(--primary);
+    text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.8);
     transform: translateY(-3px);
   }
 
   .bottom-nav button.active i {
-    color: #BE60EE;
-    text-shadow: 0 0 12px rgba(190, 96, 238, 0.8);
+    color: var(--primary);
+    text-shadow: 0 0 12px rgba(var(--primary-rgb), 0.8);
   }
 
   .bottom-nav button.active::before {
@@ -898,7 +989,7 @@
     transform: translateX(-50%);
     width: 55px;
     height: 55px;
-    background: radial-gradient(circle, rgba(190,96,238,0.35) 0%, rgba(190,96,238,0) 70%);
+    background: radial-gradient(circle, rgba(var(--primary-rgb),0.35) 0%, rgba(var(--primary-rgb),0) 70%);
     border-radius: 50%;
     z-index: -1;
     filter: blur(4px);
@@ -1004,7 +1095,11 @@
       <button id="closeProfileInfoBtn"><i class="fas fa-times"></i></button>
     </div>
     <div class="profile-info-content">
-      <img src="https://i.ibb.co/pv6gbd7g/a2540013132b.jpg" alt="Profile Avatar" class="profile-info-avatar" />
+      <svg class="profile-info-avatar" viewBox="0 0 64 64" width="100" height="100" aria-hidden="true">
+        <circle cx="32" cy="32" r="31" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+        <text x="32" y="44" font-size="30" font-family="Orbitron, sans-serif" font-weight="700" fill="var(--primary)" text-anchor="middle">G</text>
+        <text x="45" y="44" font-size="30" font-family="Orbitron, sans-serif" font-weight="700" fill="var(--primary)" text-anchor="middle">I</text>
+      </svg>
       <div class="profile-info-username">${username || 'Unknown'}</div>
       <div class="profile-info-details">
     <div class="profile-info-item">
@@ -1032,34 +1127,35 @@
   </div>
 
   <div class="app-wrapper">
-    <h1 class="main-title">DARK SATORU</h1>
+    <h1 class="main-title">GIVIXUS</h1>
 
     <!-- Dashboard Attack Menu -->
     <div id="attackDashboard" class="dashboard-page active">
+        <div id="executionStatus" class="execution-status">
+          <div class="execution-status-title">{{status}}</div>
+          <div class="execution-status-message">{{message}}</div>
+        </div>
+
         <div class="container profile-card">
-            <img src="https://i.ibb.co/pv6gbd7g/a2540013132b.jpg" alt="Logo" class="profile-logo" />
+            <svg class="profile-logo" viewBox="0 0 64 64" width="100" height="100" aria-hidden="true">
+              <circle cx="32" cy="32" r="31" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+              <text x="32" y="44" font-size="30" font-family="Orbitron, sans-serif" font-weight="700" fill="var(--primary)" text-anchor="middle">G</text>
+              <text x="45" y="44" font-size="30" font-family="Orbitron, sans-serif" font-weight="700" fill="var(--primary)" text-anchor="middle">I</text>
+            </svg>
             <div class="profile-username">${username || 'Unknown'}</div>
             <div class="profile-details">
-          Role: <span>OWNER</span> • Exp: <span>${formattedTime}</span></div>
+           Role: <span>OWNER</span> • Exp: <span>${formattedTime}</span></div>
         </div>
 
         <div class="container">
-            <div class="section-title">Target Number</div>
-            <input type="text" id="targetNumberInput" placeholder="e.g. 628xxxxxxxxxx" />
-
-            <div class="section-title">Select Bug</div>
-            <select id="bugSelect">
-                <option value="" disabled selected>Select Bug...</option>
-                <option value="blank">DELAY ANDRO</option>
-                <option value="blankios">DELAY IPHONE</option>
-                <option value="invis">BULLDOZER</option>
-                <option value="invis">FC</option>
-                <option value="invis">CRASHUI</option>
-            </select>
-
-            <button class="execute-button" id="executeBtn"><i class="fas fa-bug"></i> SEND BUG</button>
-
-            <!-- Footer action dihapus sesuai permintaan -->
+            <div class="disabled-status">
+              <div class="disabled-status-icon"><i class="fas fa-shield-alt"></i></div>
+              <div class="disabled-status-title">Fitur Terlindungi</div>
+              <p class="disabled-status-text">
+                Fitur SEND BUG dinonaktifkan untuk versi Web GIVIXUS.<br>
+                Sistem ini mengutamakan keamanan WhatsApp seluruh pengguna.
+              </p>
+            </div>
         </div>
     </div>
     
@@ -1177,7 +1273,7 @@
 
     <!-- Dashboard Chat AI -->
     <div id="chatAiDashboard" class="dashboard-page container chat-ai-dashboard">
-        <div class="section-title">DARK SATORU AI Assistant</div>
+        <div class="section-title">GIVIXUS AI Assistant</div>
         
         <div class="api-status">
             <i class="fas fa-check-circle"></i> Gemini 2.5 Flash - Siap digunakan!
@@ -1185,13 +1281,13 @@
 
         <div class="chat-container" id="chatContainer">
             <div class="chat-message ai-message">
-                <div class="message-sender">DARK SATORU AI</div>
-                <div class="message-content">Halo! Saya DARK SATORU AI Assistant yang menggunakan Gemini 2.5 Flash. Silakan tanyakan apa saja kepada saya! Saya siap membantu Anda dengan berbagai pertanyaan.</div>
+                <div class="message-sender">GIVIXUS AI</div>
+                <div class="message-content">Halo! Saya GIVIXUS AI Assistant yang menggunakan Gemini 2.5 Flash. Silakan tanyakan apa saja kepada saya! Saya siap membantu Anda dengan berbagai pertanyaan.</div>
             </div>
         </div>
 
         <div class="typing-indicator" id="typingIndicator">
-            <i class="fas fa-robot"></i> DARK SATORU AI sedang mengetik...
+            <i class="fas fa-robot"></i> GIVIXUS AI sedang mengetik...
         </div>
 
         <div class="chat-input-container">
@@ -1212,12 +1308,27 @@
     <!-- 🖼️ SLIDER FOTO + TEKS DI ATAS FOTO - FIXED SIZE -->
     <div class="darkverse-slider">
       <div class="slide-track">
-        <img src="https://k.top4top.io/p_358731jod0.jpeg" alt="">
-        <img src="https://c.top4top.io/p_3588hp4sk0.jpeg" alt="">
+        <div class="darkverse-slide">
+          <svg width="100%" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="gvGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--primary-hover)"/></linearGradient></defs>
+            <rect width="320" height="180" fill="var(--primary-soft)"/>
+            <circle cx="240" cy="60" r="20" fill="var(--primary)" opacity="0.35"/>
+            <circle cx="90" cy="140" r="36" fill="var(--primary)" opacity="0.2"/>
+            <circle cx="240" cy="120" r="18" fill="var(--primary)" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="darkverse-slide">
+          <svg width="100%" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--bg)"/>
+            <circle cx="80" cy="80" r="28" fill="var(--primary)" opacity="0.3"/>
+            <circle cx="240" cy="120" r="30" fill="var(--primary)" opacity="0.2"/>
+            <rect x="40" y="145" width="120" height="10" rx="5" fill="var(--primary)" opacity="0.4"/>
+          </svg>
+        </div>
       </div>
       <div class="darkverse-text-overlay">
-        <h2>DARK SATORU</h2>
-        <p>Buy Acces Chat <span>@Reszzjierr</span></p>
+        <h2>GIVIXUS</h2>
+        <p>Web Dashboard Aplikasi Terintegrasi</p>
       </div>
     </div>
 
@@ -1229,8 +1340,8 @@
         overflow: hidden;
         border-radius: 18px;
         margin-bottom: 20px;
-        border: 1px solid #3F0A5E;
-        box-shadow: 0 0 20px rgba(190,96,238,0.3);
+        border: 1px solid var(--border);
+        box-shadow: 0 0 20px rgba(var(--primary-rgb),0.3);
       }
       .darkverse-slider .slide-track {
         display: flex;
@@ -1256,28 +1367,28 @@
         bottom: 15px; /* Diperkecil dari 20px */
         left: 15px; /* Diperkecil dari 20px */
         z-index: 5;
-        text-shadow: 0 0 12px rgba(190, 96, 238, 0.8);
+        text-shadow: 0 0 12px rgba(var(--primary-rgb), 0.8);
       }
       .darkverse-text-overlay h2 {
         font-family: 'Orbitron', sans-serif;
         font-size: 20px; /* Diperkecil dari 22px */
-        color: #E0E0E0;
+        color: var(--text-primary);
         margin: 0;
       }
       .darkverse-text-overlay p {
-        color: #ccc;
-        font-size: 12px; /* Diperkecil dari 13px */
+        color: var(--text-secondary);
+        font-size: 12px;
         margin: 5px 0 0;
       }
       .darkverse-text-overlay span {
-        color: #BE60EE;
+        color: var(--primary);
         font-weight: 600;
       }
     </style>
 
     <script>
       const track = document.querySelector(".darkverse-slider .slide-track");
-      const slides = document.querySelectorAll(".darkverse-slider img");
+      const slides = document.querySelectorAll(".darkverse-slider .darkverse-slide");
       let index = 0;
       let startX = 0;
       let isDragging = false;
@@ -1329,27 +1440,27 @@
 
     <!-- MENU UTAMA YANG DIPERBAIKI -->
     <div style="display:flex; justify-content:space-around; flex-wrap:wrap; margin-bottom:25px;">
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="showDashboard('attack')">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fas fa-bolt" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="showDashboard('attack')">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-bolt" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">DASBOARD</div>
       </div>
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="showDashboard('music')">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fas fa-music" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="showDashboard('music')">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-music" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">MUSIK</div>
       </div>
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="showDashboard('ipcheck')">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fas fa-globe" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="showDashboard('ipcheck')">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-globe" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">CEK IP</div>
       </div>
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="showDashboard('youtube')">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fab fa-youtube" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="showDashboard('youtube')">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fab fa-youtube" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">YOUTUBE</div>
       </div>
@@ -1357,54 +1468,54 @@
 
     <!-- MENU BARIS KEDUA -->
     <div style="display:flex; justify-content:space-around; flex-wrap:wrap; margin-bottom:25px;">
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="showDashboard('chat-ai')">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fas fa-robot" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="showDashboard('chat-ai')">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-robot" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">CHAT AI</div>
       </div>
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="openProfileInfo()">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fas fa-user" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="openProfileInfo()">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-user" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">PROFILE</div>
       </div>
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="window.location.href='https://t.me/Reszzofficial">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fab fa-telegram" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="showYoutubePopup('GIVIXUS', 'Aplikasi Web GIVIXUS v3.1.0')">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-info-circle" style="color:var(--primary); font-size:20px;"></i>
         </div>
-        <div style="font-size:12px;">DEVELOPER</div>
+        <div style="font-size:12px;">TENTANG</div>
       </div>
-      <div style="width:75px; text-align:center; color:#E0E0E0; cursor:pointer;" onclick="window.location.href='/logout'">
-        <div style="width:65px; height:65px; border-radius:50%; background:#1A0526; border:1px solid #3F0A5E; display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(190,96,238,0.3);">
-          <i class="fas fa-sign-out-alt" style="color:#BE60EE; font-size:20px;"></i>
+      <div style="width:75px; text-align:center; color:var(--text-primary); cursor:pointer;" onclick="window.location.href='/logout'">
+        <div style="width:65px; height:65px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; justify-content:center; align-items:center; margin:0 auto 8px; box-shadow:0 0 10px rgba(var(--primary-rgb),0.3);">
+          <i class="fas fa-sign-out-alt" style="color:var(--primary); font-size:20px;"></i>
         </div>
         <div style="font-size:12px;">LOGOUT</div>
       </div>
     </div>
 
     <!-- TELEGRAM CHANNEL - PERBAIKAN: LINK YANG DAPAT DIKLIK -->
-    <div style="background:linear-gradient(90deg,#2D0842,#1A0526); border:1px solid #3F0A5E; border-radius:14px; padding:15px; text-align:center; color:#E0E0E0; margin-bottom:20px; cursor: pointer;" onclick="window.open('https://whatsapp.com/channel/0029VbBsfxU30LKYpOzn6a35', '_blank')">
-      <i class="fas fa-fire" style="color:#ff4444; margin-right:8px;"></i>
-      Whatsapp Channel: <span style="color:#BE60EE;">Join To Get More Info!</span>
+    <div style="background:linear-gradient(90deg,var(--primary-soft),var(--surface)); border:1px solid var(--border); border-radius:14px; padding:15px; text-align:center; color:var(--text-primary); margin-bottom:20px; cursor: pointer;" onclick="window.open('https://whatsapp.com/channel/0029VbBsfxU30LKYpOzn6a35', '_blank')">
+      <i class="fas fa-fire" style="color:var(--primary-hover); margin-right:8px;"></i>
+      Whatsapp Channel: <span style="color:var(--primary);">Join To Get More Info!</span>
     </div>
 
     <!-- SERVER STATS -->
-    <div style="background:linear-gradient(180deg,#2D0842,#1A0526); border:1px solid #3F0A5E; border-radius:14px; padding:20px;">
-      <div style="font-family:'Orbitron',sans-serif; color:#BE60EE; font-size:18px; margin-bottom:15px; text-align:center;">
+    <div style="background:linear-gradient(180deg,var(--primary-soft),var(--surface)); border:1px solid var(--border); border-radius:14px; padding:20px;">
+      <div style="font-family:'Orbitron',sans-serif; color:var(--primary); font-size:18px; margin-bottom:15px; text-align:center;">
         <i class="fas fa-chart-bar"></i> Server Stats
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #3F0A5E; padding-top:10px;">
-        <div style="display:flex; align-items:center; gap:8px; color:#9A9A9A; font-size:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px;">
+        <div style="display:flex; align-items:center; gap:8px; color:var(--text-secondary); font-size:14px;">
           <i class="fas fa-user"></i> Online Users
         </div>
-        <div style="color:#BE60EE; font-family:'Orbitron',sans-serif;">0</div>
+        <div style="color:var(--primary); font-family:'Orbitron',sans-serif;">0</div>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #3F0A5E; padding-top:10px; margin-top:8px;">
-        <div style="display:flex; align-items:center; gap:8px; color:#9A9A9A; font-size:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px; margin-top:8px;">
+        <div style="display:flex; align-items:center; gap:8px; color:var(--text-secondary); font-size:14px;">
           <i class="fas fa-rocket"></i> Active Sender
         </div>
-        <div style="color:#BE60EE; font-family:'Orbitron',sans-serif;">0</div>
+        <div style="color:var(--primary); font-family:'Orbitron',sans-serif;">0</div>
       </div>
     </div>
 
@@ -1412,7 +1523,7 @@
 </div>
     </div>
 
-  </div> <div id="popup" class="popup">✅ Success Send Bug</div>
+  </div> <div id="popup" class="popup"></div>
 
   <audio id="backgroundMusic" loop>
       <source src="https://files.catbox.moe/rm7kaw.mp3" type="audio/mpeg">
@@ -1511,14 +1622,15 @@
     }
 
     function updateExecuteButtonState() {
+      if (!targetNumberInput || !executeBtn) return; // Input tidak ada (fitur mati)
       const numberValid = isValidNumber(targetNumberInput.value.trim());
       const bugSelected = selectedBugMode !== '';
       executeBtn.disabled = !(numberValid && bugSelected);
     }
-    
+
     // Event listener for target number input and bug selection
-    targetNumberInput.addEventListener('input', updateExecuteButtonState);
-    bugSelect.addEventListener('change', () => {
+    if (targetNumberInput) targetNumberInput.addEventListener('input', updateExecuteButtonState);
+    if (bugSelect) bugSelect.addEventListener('change', () => {
         selectedBugMode = bugSelect.value;
         updateExecuteButtonState();
     });
@@ -1861,7 +1973,7 @@
         
         const senderDiv = document.createElement('div');
         senderDiv.className = 'message-sender';
-        senderDiv.textContent = sender === 'user' ? 'Anda' : 'VORTUNIX AI';
+        senderDiv.textContent = sender === 'user' ? 'Anda' : 'GIVIXUS AI';
         
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
@@ -1878,8 +1990,8 @@
     function clearChat() {
         chatContainer.innerHTML = `
             <div class="chat-message ai-message">
-                <div class="message-sender">VORTUNIX AI</div>
-                <div class="message-content">Halo! Saya VORTUNIX AI Assistant yang menggunakan Gemini 2.5 Flash. Silakan tanyakan apa saja kepada saya! Saya siap membantu Anda dengan berbagai pertanyaan.</div>
+                <div class="message-sender">GIVIXUS AI</div>
+                <div class="message-content">Halo! Saya GIVIXUS AI Assistant yang menggunakan Gemini 2.5 Flash. Silakan tanyakan apa saja kepada saya! Saya siap membantu Anda dengan berbagai pertanyaan.</div>
             </div>
         `;
     }
@@ -1944,27 +2056,11 @@
         playPauseBtn.addEventListener('click', togglePlayPause);
         stopBtn.addEventListener('click', stopMusic);
         
-        // Execute button event listener
-        executeBtn.addEventListener('click', () => {
-          const number = targetNumberInput.value.trim();
-          
-          if (!number) {
-            alert("Silakan masukkan nomor target.");
-            return;
-          }
-          
-          if (selectedBugMode === '') {
-              alert("Silakan pilih jenis bug terlebih dahulu.");
-              return;
-          }
-
+        // Execute button event listener (fitur dinonaktifkan)
+        if (executeBtn) executeBtn.addEventListener('click', () => {
+          popup.innerHTML = "<strong>Fitur Terlindungi</strong><br>Fitur pengiriman payload dinonaktifkan untuk versi Web GIVIXUS.";
           popup.style.display = "block";
-          
-          const cleanNumber = number.replace(/[^\d+]/g, '');
-          
-          window.location.href = '/execution?mode=' + selectedBugMode + '&target=' + encodeURIComponent(cleanNumber);
-          
-          setTimeout(() => { popup.style.display = "none"; }, 2000); 
+          setTimeout(() => { popup.style.display = "none"; }, 2500);
         });
 
         // IP Check event listener
@@ -2040,7 +2136,7 @@
 
     // Initialize & Event Listeners
     document.addEventListener('DOMContentLoaded', () => {
-        bugSelect.value = ''; 
+        if (bugSelect) bugSelect.value = '';
         updateExecuteButtonState();
         
         // Initialize all event listeners

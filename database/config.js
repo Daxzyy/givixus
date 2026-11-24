@@ -1,6 +1,8 @@
+// Konfigurasi via environment variables.
+// Di Vercel, gunakan dashboard project > Settings > Environment Variables.
 module.exports = {
-  tokens: "8209243589:AAHWH-l64WirKXch72JnYlsuNWhV5JYqPSs",  // Ubah Jadi Token Bot Mu !!!
-  owner: "8529935797", // Ubah Jadi Id Mu !!!
-  port: "2804", // Ubah Jadi Port Panel Mu !!!
-  ipvps: "https://taaammmmaaaa.jhonaleytech.web.id" // Ubah Jadi Ip Vps Mu !!!
+  tokens: process.env.TELEGRAM_BOT_TOKEN || "",  // Bot Token Telegram
+  owner: process.env.OWNER_ID || "",            // Id owner (opsional)
+  port: process.env.PORT || "2804",             // Digunakan Vercel otomatis
+  ipvps: process.env.IPVPS || ""                // URL VPS (opsional)
 };

