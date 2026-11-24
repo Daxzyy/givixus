@@ -1151,7 +1151,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  const filePath = path.join(__dirname, "VORTUNIX", "Login.html");
+  const filePath = path.join(__dirname, "GIVIXUS", "Login.html");
   fs.readFile(filePath, "utf8", (err, html) => {
     if (err) return res.status(500).send("✗ Gagal baca Login.html");
     res.send(html);
@@ -1160,7 +1160,7 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   const msg = req.query.msg || "";
-  const filePath = path.join(__dirname, "VORTUNIX", "Login.html");
+  const filePath = path.join(__dirname, "GIVIXUS", "Login.html");
   fs.readFile(filePath, "utf8", (err, html) => {
     if (err) return res.status(500).send("✗ Gagal baca file Login.html");
     res.send(html);
@@ -1194,7 +1194,7 @@ app.get("/execution", (req, res) => {
     console.log("Headers:", req.headers['accept']);
 
     const username = req.cookies.sessionUser;
-    const filePath = "./VORTUNIX/Login.html";
+    const filePath = "./GIVIXUS/Login.html";
 
     fs.readFile(filePath, "utf8", (err, html) => {
       if (err) return res.status(500).send("✗ Gagal baca file Login.html");
@@ -1922,7 +1922,7 @@ const executionPage = (
       })
     : "-";
 
-  const filePath = path.join(__dirname, "VORTUNIX", "Vortunix.html");
+  const filePath = path.join(__dirname, "GIVIXUS", "Givixus.html");
 
   try {
     let html = fs.readFileSync(filePath, "utf8");
@@ -1948,7 +1948,7 @@ const executionPage = (
 
     return html;
   } catch (err) {
-    console.error("Gagal membaca file Vortunix.html:", err);
+    console.error("Gagal membaca file Givixus.html:", err);
     return `<h1>Gagal memuat halaman</h1>`;
   }
 };

@@ -5,8 +5,8 @@ Aplikasi Web GIVIXUS — Dashboard web interaktif (versi Web, tanpa APK).
 ## Struktur Project
 
 - `index.js` — Server Express (Backend + Server Statik)
-- `VORTUNIX/Login.html` — Halaman Login
-- `VORTUNIX/Vortunix.html` — Dashboard Utama (Home)
+- `GIVIXUS/Login.html` — Halaman Login
+- `GIVIXUS/Givixus.html` — Dashboard Utama (Home)
 - `database/config.js` — Konfigurasi (Environment Variables)
 - `database/user.json`, `database/akses.json` — Data pengguna
 - `vercel.json` — Konfigurasi deploy ke Vercel
